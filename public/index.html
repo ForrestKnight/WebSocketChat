@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>WebSockets</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.dev.js"></script>
+        <link rel="stylesheet" href="/styles.css" />
+    </head>
+    <body>
+        <div id="websocket-chat">
+            <h2>WebSocket Chat</h2>
+            <div id="chat-window">
+                <div id="output"></div>
+                <div id="feedback"></div>
+            </div>
+            <input id="handle" type="text" placeholder="Handle" />
+            <input id="message" type="text" placeholder="Message" />
+            <button id="send">Send</button>
+        </div>
+        <script src="/chat.js"></script>
+    </body>
+    
+</html>
