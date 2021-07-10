@@ -25,4 +25,8 @@ io.on('connection', function(socket){
     socket.on('typing', function(data){
         socket.broadcast.emit('typing', data);
     });
+	
+	socket.on('stop-typing', function(data) {
+		socket.broadcast.emit('stop-typing', data);
+	});
 });
