@@ -8,6 +8,8 @@ var message = document.getElementById('message'),
       output = document.getElementById('output'),
       feedback = document.getElementById('feedback');
 
+var currentTimer = undefined;
+
 // Emit events (upon click, emit to chat the message and handle)
 btn.addEventListener('click', function(){
     socket.emit('chat', {
@@ -18,9 +20,14 @@ btn.addEventListener('click', function(){
 });
 
 // Attach event listener to message input field
-message.addEventListener('keypress', function(){
+message.addEventListener('keypress', function() {
+	if(currentTimer) {
+		clearTimeout(currentTimer);
+	}
+	
+	currentTimer = setTimeout(emitStopTyping, 1000);
     socket.emit('typing', handle.value);
-})
+});
 
 // get existing messages
 socket.on('initial-connection', function(messages) {
@@ -29,12 +36,25 @@ socket.on('initial-connection', function(messages) {
 	}
 });
 
+message.addEventListener('focusout', function(e) {
+	emitStopTyping();
+});
+
 // Listen for events
 socket.on('chat', appendMessage);
+
 
 socket.on('typing', function(data){
     feedback.innerHTML = '<p><em>' + data + ' is typing a message...</em></p>';
 });
+
+socket.on('stop-typing', function(data) {
+	feedback.innerHTML = '';
+});
+
+function emitStopTyping() {
+	socket.emit('stop-typing', null);
+}
 
 function appendMessage(data) {
 	feedback.innerHTML = '';
