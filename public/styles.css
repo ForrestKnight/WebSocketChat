@@ -67,3 +67,8 @@ button{
     width: 100%;
     border-radius: 0 0 2px 2px;
 }
+
+#clearChat {
+    background-color: #f44336; /* Red background color */
+    margin: 5px 0px; /* Margin around the button */
+}

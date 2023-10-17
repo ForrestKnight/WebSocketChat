@@ -7,6 +7,7 @@ var message = document.getElementById('message'),
       btn = document.getElementById('send'),
       output = document.getElementById('output'),
       feedback = document.getElementById('feedback');
+      clearChatBtn = document.getElementById('clearChat');
 
 // Emit events (upon click, emit to chat the message and handle)
 btn.addEventListener('click', function(){
@@ -21,6 +22,13 @@ btn.addEventListener('click', function(){
 message.addEventListener('keypress', function(){
     socket.emit('typing', handle.value);
 })
+
+// clear chat when clearChat button is clicked
+clearChatBtn.addEventListener('click', function(){
+    while(output.firstChild) {
+        output.removeChild(output.firstChild);
+    };
+});
 
 // get existing messages
 socket.on('initial-connection', function(messages) {
